@@ -314,7 +314,7 @@ python3 scripts/check_video.py out/final-4k.mp4 --scale 2      # 必须 0 ERROR�
 | `check_video.py` | 成片闸门：规格、渲染日志报错、响度、按场景抽帧；再调 `film_gate.py` 量画面密度（只报 WARN） |
 | `film_gate.py` | 画面密度门禁（来自 huashu-art-motion）：只读 mp4，量「翻页 PPT 感」（镜头内快动帧占比）、中段空画面、蓝紫底；需要 `opencv-python-headless` |
 | `sfxlib.py` | 外部音效接进 mix.py：`ui("click")` 归藏 11 种界面音、`fx("whoosh")` lemo 程序化音效、`pluck("guqin","D3")` 拨弦（要 numba）、`DUCK` 按音效类型的压低预设 |
-| `inspire.py` | 灵感检索：在 vendor/ 三个合集（703 条 Opus 5.5 作品、1417 个动效作品、347 个视频 Skill）里按关键词找案例和提示词原文 |
+| `inspire.py` | 灵感检索：在 `references/风格库/合集/` 三个合集（703 条 Opus 5.5 作品、1417 个动效作品、347 个视频 Skill）里按关键词找案例和提示词原文 |
 | `vendor/` | 外部项目原样拷来的脚本（huashu 的 qa / deliver / storyboard_lint、lemo 的 sfx / pluck / asr_check、归藏的 make_sfx / mix_audio / check_delivery、ClaudeAnimationBase 的 render），各带 LICENSE |
 | `platform_check.py` | 多平台竖屏版：按小红书 / 视频号 / 抖音的界面遮挡裁切、压暗截图，拼成 `out/platform-<平台>.jpg` |
 

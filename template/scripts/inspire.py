@@ -1,4 +1,4 @@
-"""灵感检索：在三个作品 / 工具合集里按关键词找案例、提示词和可用 Skill（数据在 <工具目录>/vendor/，不联网）。
+"""灵感检索：在三个作品 / 工具合集里按关键词找案例、提示词和可用 Skill（数据在 <工具目录>/references/风格库/合集/，不联网）。
 
 python3 scripts/inspire.py 知识讲解 KV                 三个库一起搜，关键词全部命中才列出
 python3 scripts/inspire.py --lib motion --cat 知识讲解 Transformer
@@ -18,13 +18,20 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def vendor_dir():
-    # 工程在 <工具目录>/outputs/<项目>/工程/scripts，template 在 <工具目录>/template/scripts
-    d = HERE
+    """先找 <工具目录>/references/风格库/合集（进了 git，任何电脑拉下来就有），再找 <工具目录>/vendor（完整原仓库，不进 git）。
+    克隆用法：工程在 <工具目录>/outputs/<项目>/工程/scripts，template 在 <工具目录>/template/scripts，往上找。
+    Skill 用法：工程在别的工作区，用环境变量 VIDEO_AS_CODE_HOME 指向 <工具目录>。"""
+    roots, d = [], HERE
+    if os.environ.get("VIDEO_AS_CODE_HOME"):
+        roots.append(os.environ["VIDEO_AS_CODE_HOME"])
     for _ in range(6):
         d = os.path.dirname(d)
-        if os.path.isdir(os.path.join(d, "vendor", "awesome-ai-motion")):
-            return os.path.join(d, "vendor")
-    sys.exit("找不到 vendor/：先把外部合集拷到 <工具目录>/vendor/（见 references/风格库/README.md）")
+        roots.append(d)
+    for r in roots:
+        for sub in (os.path.join("references", "风格库", "合集"), "vendor"):
+            if os.path.isdir(os.path.join(r, sub, "awesome-ai-motion")):
+                return os.path.join(r, sub)
+    sys.exit("找不到合集数据：<工具目录>/references/风格库/合集/ 不在，或 Skill 用法下没设环境变量 VIDEO_AS_CODE_HOME=<工具目录>")
 
 
 V = vendor_dir()

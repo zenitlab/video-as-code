@@ -1,6 +1,6 @@
 # 风格库
 
-从 7 个外部项目拷来的风格、画法和方法文档（原样，源码仓库在 `<工具目录>/vendor/`，不进 git）。第 2 步出风格样片时从这里挑；第 6 步写画法时直接改用这里的代码。
+从 7 个外部项目拷来的风格、画法、方法文档和作品合集。用得到的部分都在本目录和 `template/` 里，跟着仓库走；完整的原始仓库另存在 `<工具目录>/vendor/`（不进 git，没有也不影响使用）。第 2 步出风格样片时从这里挑；第 6 步写画法时直接改用这里的代码。
 
 ## 一、花叔 huashu-art-motion · 8 种讲解语法（可直接在 Remotion 里用）
 
@@ -24,7 +24,7 @@ import { HuashuClip } from "../components/HuashuClip";
 
 7 种已在竖屏 Remotion 里实测出图（y4 要自备角色帧）。色板 `theme`：paper / poster / ink / navy / bauhaus / snow / wood / chalk，见 `huashu/色板.md`。
 
-方法文档：`huashu/镜头语言.md`（推、横移、拉远什么时候用）、`huashu/05-节奏与配乐.md`、`huashu/09-视频动画语法.md`（片段契约）、`huashu/镜头表模板.md`。35 种艺术风格配方卡在 `huashu/风格配方/`（洞穴壁画、埃及、梵高、克里姆特、包豪斯、浮世绘、8-bit、蒸汽波、新海诚……），场景代码在 `<工具目录>/vendor/huashu-art-motion/scripts/engine/scenes/`。
+方法文档：`huashu/镜头语言.md`（推、横移、拉远什么时候用）、`huashu/05-节奏与配乐.md`、`huashu/09-视频动画语法.md`（片段契约）、`huashu/镜头表模板.md`。35 种艺术风格配方卡在 `huashu/风格配方/`（洞穴壁画、埃及、梵高、克里姆特、包豪斯、浮世绘、8-bit、蒸汽波、新海诚……），场景代码在 `huashu-scenes/scenes/`（引擎 `engine.js`、转场 `transitions.js`、段落表 `eras.js` 一并拷在 `huashu-scenes/`）。
 
 ## 二、Lemo-Opuscar · 59 种影片风格
 
@@ -100,5 +100,5 @@ import { HuashuClip } from "../components/HuashuClip";
 
 - 归藏 product video skill：`template/scripts/vendor/` 里的 `make_sfx.py`（11 种界面音）、`mix_audio.py`（按音效类型压低音乐）、`sfx_landmarks.py`（测音效起音点）、`check_delivery.py`（交付检查）。在 mix.py 里用 `scripts/sfxlib.py` 调。
 
-- 灵感检索：`python3 scripts/inspire.py 知识讲解 KV` 在三个合集里搜作品、提示词原文和视频类 Skill。
+- 灵感检索：`python3 scripts/inspire.py 知识讲解 KV` 在三个合集里搜作品、提示词原文和视频类 Skill。合集数据在 `合集/`：awesome-opus5-5-videos（703 条作品 + 提示词）、awesome-ai-motion（1417 个作品，不含封面图）、awesome-claude-video-skills（347 个 Skill）。Skill 用法下先设环境变量 `VIDEO_AS_CODE_HOME=<工具目录>`。
 

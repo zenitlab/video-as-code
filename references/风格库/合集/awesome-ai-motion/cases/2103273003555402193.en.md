@@ -1,0 +1,89 @@
+[← Back to gallery](../browse/motion.en.md) · [简体中文](2103273003555402193.md)
+
+<a id="case-2103273003555402193"></a>
+
+# One shape, a seamless UI morph loop
+
+**[zero · @twoclipping](https://x.com/twoclipping)** · Motion design · 14s
+
+**[▶ Open gallery to play](https://guanmo-ai.github.io/awesome-ai-motion/?lang=en#case-2103273003555402193)** · [Original post](https://x.com/twoclipping/status/2103273003555402193)
+
+Click the cover to open the gallery and play.
+
+[<img src="../assets/covers/2103273003555402193.jpg" width="640" alt="One shape, a seamless UI morph loop">](https://guanmo-ai.github.io/awesome-ai-motion/?lang=en#case-2103273003555402193)
+
+
+
+Buttons, loaders, players and charts morph continuously in time with music.
+
+## What to learn
+
+One shape morphing through UI states can turn a feature tour into a rhythmic sequence.
+
+**Try it yourself** · Editorial suggestions based on public source material, not a complete record of the creator’s process.
+
+1. List 8–12 UI states, choose colors and a usable song near 120 BPM.
+2. Place each morph on the beat and let one shape and cursor drive the changes.
+3. Review a beat-by-beat preview, then check text overlap and the loop seam.
+
+Tools mentioned in the source：HTML · Playwright · ffmpeg
+
+[Source 1](https://x.com/twoclipping/status/2103273003555402193)
+
+> Before you try: A reusable template: supply UI states, colors and music. The full original is preserved.
+
+**Creator’s public prompt** · [Source](https://x.com/twoclipping/status/2103273003555402193) · [Plain text](../prompts/2103273003555402193.txt)
+
+<details>
+<summary>Read original · 2,711 characters</summary>
+
+```text
+<inputs>
+Ask me for: 8 to 12 UI states I want the shape to become (e.g. button, loader, player, slider, toggle, tabs, chart, command palette, toast), pure black and white or one accent color, and a royalty-free song around 120 BPM (e.g. Mixkit, free for commercial use).
+</inputs>
+
+<direction>
+Dribbble-level UI motion. One shape, never cut: every state is the same element morphing its size, radius and color while its content swaps with a short blur. A cursor drives every change with real clicks and drags. Light warm-gray canvas, black and white components, one clean UI font (Geist). Springs everywhere, a tiny overshoot at most. The camera zooms so each state fills the frame. The last frame is the first frame, so it loops.
+Banned: bouncy easing, particle bursts, glows, gradients on UI chrome, mismatched icon strokes, dead time, anything that looks like a template.
+</direction>
+
+<structure>
+120 BPM, 7 bars, something happens on every beat.
+Button → loader → check → dynamic island → music player with a play/pause morph → scrub the progress bar → it becomes a volume slider that stretches when dragged past max → a toggle flips on the beat → the knob becomes a liquid tab indicator → the tabs open into a chart that draws itself, with a tooltip on hover → it collapses into ⌘K → type to filter → enter → toast → back to the button.
+</structure>
+
+<build>
+1. One HTML file, square 1440x1440. Every style is computed from time inside seek(t): no CSS transitions, no timers, no state carried between frames.
+2. Springs are closed-form step responses. A value that changes target many times is the sum of one spring per change, so it stays a pure function of time.
+3. The tab indicator's two edges ride different springs, so the leading edge stretches ahead of the trailing one. Same trick for the toggle knob.
+4. Drags are direct manipulation: while the cursor is held, the value is computed from its position. On release it springs back from wherever it was.
+5. Analyze the song with numpy for the beat grid and start on a downbeat. Place every UI sound by its measured peak.
+6. Render with Playwright: 4 subframes per frame, blended with ffmpeg tmix for motion blur at 60fps.
+7. Render one frame per beat before the full render. Fix anything off the grid, cramped or hard to read.
+</build>
+
+<gotchas>
+Never put will-change on anything the camera scales or the text renders blurry. Text that swaps inside a morphing container needs its own enter and exit timing or it overlaps. Make the last frame identical to the first, cursor position and speed included, or the loop stutters.
+</gotchas>
+
+<start>
+Ask me for the inputs, then show me the state list on the beat grid before you write any code.
+</start>
+```
+
+</details>
+
+<sub>Bookmarks 19,303 · Likes 11,656 · Views 907,430</sub>
+
+
+
+## Source record
+
+- Original post: [@twoclipping](https://x.com/twoclipping/status/2103273003555402193) · Thu Sep 24 23:58:55 +0000 2026
+- Model attribution: Claude Opus 5.5 · [Creator’s statement](https://x.com/twoclipping/status/2103273003555402193)
+- Prompt source: [Creator post](https://x.com/twoclipping/status/2103273003555402193) · 2026-09-27 04:57 UTC
+- Cover source: [Original cover source](https://x.com/twoclipping/status/2103273003555402193) · 4s
+- Metrics snapshot: [Original X post](https://x.com/twoclipping/status/2103273003555402193) · 2026-09-27 04:57 UTC
+- Gallery video source: [Original post media record](https://x.com/twoclipping/status/2103273003555402193) · 2026-09-27 11:17 UTC · Post/media correspondence and media response checked; external reference, no re-upload
+
+Model attribution is based on creator statements. Prompts have not been independently rerun; sound and visuals have not received a uniform quality rating. Videos reference original post media, not our uploads; redistribution permission has not been verified.
