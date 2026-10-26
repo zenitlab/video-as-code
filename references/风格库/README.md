@@ -1,6 +1,6 @@
 # 风格库
 
-从 7 个外部项目拷来的风格、画法、方法文档和作品合集。用得到的部分都在本目录和 `template/` 里，跟着仓库走；完整的原始仓库另存在 `<工具目录>/vendor/`（不进 git，没有也不影响使用）。第 2 步出风格样片时从这里挑；第 6 步写画法时直接改用这里的代码。
+从 8 个外部项目拷来的风格、画法、方法文档和作品合集。用得到的部分都在本目录和 `template/` 里，跟着仓库走；完整的原始仓库另存在 `<工具目录>/vendor/`（不进 git，没有也不影响使用）。第 2 步出风格样片时从这里挑；第 6 步写画法时直接改用这里的代码。
 
 ## 一、花叔 huashu-art-motion · 8 种讲解语法（可直接在 Remotion 里用）
 
@@ -94,7 +94,32 @@ import { HuashuClip } from "../components/HuashuClip";
 
 适合科技 / 知识讲解的：whiteboard、dataviz、iso-infographic、dark-keynote、living-screencast、hologram-hud、blueprint、briefing-board、teardown、data-physical、swiss-motion、ascii-crt、satellite-briefing、lidar-survey、pictogram-motion、microscope、news-package、caption-news。
 
-## 三、其他
+## 三、岚叔 lanshu · 12 种讲解风格（9 种画风 + 3 种讲法）
+
+来源：cclank/lanshu-create-ai-presenter-video 的 `explainer/`，原样拷在 `lanshu/`。同一个题目 KV Cache 用 12 种风格各做了一支示范片，对比图见 `lanshu/gallery/nine-styles-kv-cache.jpg`、`lanshu/gallery/three-narrative-styles-kv-cache.jpg`，第 2 步出样片时可以直接拿这两张图给用户看。
+
+**注意：原项目只有横屏 16:9（1920×1080），用 HTML + GSAP 写、HyperFrames 渲染。** 本工具做竖屏时不能直接套用：选中某种风格后，照它的 `kits/<key>/kit.css`（配色、字体、字号）和 `kits/<key>/kit.js`（组件和动作），按 1080×1920 重新排版，改写成分镜的 `draw(g, t)` + `ov(t)` 或 Remotion 组件。示范片源码在 `examples/kv-cache/<key>/index.html`，动作写法看它。
+
+| key | 名称 | 画面 | 适合 |
+|---|---|---|---|
+| `v1-editorial` | 留白 | 暖白纸、墨色、一抹朱红，大留白、翻页 | 严肃、高级感、商业与产品 |
+| `v2-signal` | 信号 | 暗色仪表盘、荧光绿，标签解码出现、数据包在线上走、故障切 | AI、基础设施、网络、系统类 |
+| `v3-notebook` | 手帐 | 方格纸上真笔逐字书写、便利贴、橡皮擦 | 一步步推导、学习笔记、教学 |
+| `v4-paper` | 立体书 | 牛皮纸立体书，纸片折起、软阴影、视差 | 有温度的故事、流程、大众话题 |
+| `v5-comic` | 波普漫画 | 半调网点漫画、贴纸拍入、爆炸字 | 快节奏短视频、观点、辟谣 |
+| `v6-cinematic` | 一镜到底 | Three.js 3D 影棚一镜到底、瓷质道具、辉光 | 旗舰内容、发布、宏观概念 |
+| `v7-drafting` | 图纸与注脚 | 黑色工程图纸、引线、注脚、卡拉 OK 式大字 | 面向从业者的技术深挖 |
+| `v8-chalkboard` | 黑板报 | 木框黑板、粉笔现写、板擦、粉笔脑图复习 | 课堂感、入门、便于记忆 |
+| `v9-clay` | 黏土小城 | 等距黏土小城，比喻 + 真实术语标签 | 用比喻讲给外行 |
+| `v10-reasoning` | 推演 | 墨蓝画布，图形和公式一步步搭出来 | 原理、算法、数学（讲法：问题 → 搭图 → 规律 → 结论与代价） |
+| `v11-casefile` | 案卷 | 软木证据板、线索、结案章 | 故障复盘、为什么会这样（讲法：异常 → 取证 → 查明 → 修复 → 结案） |
+| `v12-sitcom` | 小剧场 | 生活场景里的角色、账单、排队 | 讲给小白（讲法：角色遇到误区 → 实物对照找到原因 → 新做法 → 比喻对上术语） |
+
+选风格看 `lanshu/STYLES.md`（含给用户看的风格菜单原文）；组件接口看 `lanshu/KITS.md`；坑看 `lanshu/GOTCHAS.md`；写稿和讲解方法看 `lanshu/方法文档/styled-explainer.md`。程序化音效 `lanshu/core/sfxlib.py`，部分风格另有专属音效（如 `kits/v3-notebook/notebook_sfx.py`、`kits/v2-signal/sfx_signal.py`）。
+
+运行时依赖（原项目从网上加载，本工具改写时要换成本地或去掉）：GSAP 3.14.2、three.js r181（V6、V9 用）、Google Fonts 子集。
+
+## 四、其他
 
 - `ClaudeAnimationBase_ANIMATION_GUIDE.md`：手绘角色动画的节奏规则（一次只让观众看懂一件事、看懂后停一下）、31 种情绪、笔刷擦除转场。引擎在 `template/public/vendor/cab/`（p5.js + p5.brush），自审渲染脚本 `template/scripts/vendor/cab_render.mjs`（`--sheet` / `--strip` / `--crop-at`）。
 
