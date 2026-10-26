@@ -1,0 +1,9 @@
+numpy
+scipy
+Pillow
+fonttools
+brotli
+playwright
+dashscope==1.24.6
+pypinyin==0.53.0
+opencv-python-headless==4.10.0.84

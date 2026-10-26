@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>风格样片筛选</title>
+<!--
+  第 2 步「风格方向」用的动画样片筛选页。
+  用法：复制到 <输出目录>/<中文项目名>/样帧/样片筛选.html，每个候选风格做一个 3 秒循环的 HTML 样片
+  （样帧/01.html、02.html……，画面完全由时间 t 决定），在下面 SAMPLES 里登记，用系统浏览器打开给用户挑。
+  用户点选后「复制我的选择」，把「我选 02：……」发回来。
+  布局参考自 chengfeng-video-styles（成峰 / AI产品自由，Apache-2.0）的样片筛选页，改成支持 9:16 / 16:9。
+-->
+<style>
+  :root { --bg: hsl(0 0% 99%); --fg: hsl(0 0% 9%); --muted: hsl(0 0% 46%); --line: hsl(0 0% 90%); --hover: hsl(0 0% 9% / 0.03); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--fg); font: 400 13px/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif; }
+  header { display: flex; align-items: baseline; gap: 12px; padding: 24px 24px 16px; border-bottom: 1px solid var(--line); }
+  h1 { margin: 0; font-size: 1rem; font-weight: 600; }
+  .meta { font-size: 12px; color: var(--muted); }
+  main { display: grid; gap: 24px 16px; padding: 24px 24px 96px; }
+  main.v { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  main.h { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .cell { padding: 4px; border-radius: 8px; cursor: pointer; user-select: none; }
+  .cell:hover { background: var(--hover); }
+  .frame { position: relative; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #000; }
+  .frame iframe { position: absolute; left: 0; top: 0; border: 0; pointer-events: none; transform-origin: 0 0; }
+  .cell.on .frame { outline: 2px solid var(--fg); outline-offset: 2px; }
+  .row { display: flex; align-items: baseline; gap: 8px; padding-top: 8px; }
+  .no { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .cell.on .no { color: var(--fg); }
+  .note { flex: 1; min-width: 0; }
+  .link { padding: 0; border: 0; background: none; font: inherit; font-size: 12px; color: var(--muted); cursor: pointer; }
+  .link:hover { color: var(--fg); }
+  footer { position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 12px; padding: 12px 24px; border-top: 1px solid var(--line); background: var(--bg); }
+  #picked { white-space: nowrap; color: var(--muted); }
+  #picked.on { color: var(--fg); }
+  #remark { flex: 1; min-width: 0; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--fg); font: inherit; }
+  .btn { padding: 8px 12px; border: 1px solid var(--fg); border-radius: 6px; background: var(--fg); color: var(--bg); font: inherit; font-size: 0.78rem; font-weight: 500; white-space: nowrap; cursor: pointer; }
+  .btn:disabled { opacity: 0.35; cursor: default; }
+  #big { position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; background: hsl(0 0% 9% / 0.7); }
+  #big.on { display: flex; }
+  #big .stage { position: relative; overflow: hidden; border-radius: 8px; background: #000; box-shadow: 0 8px 24px hsl(0 0% 0% / 0.3); }
+  #big .stage iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; }
+  #big .bar { display: flex; align-items: center; gap: 12px; color: hsl(0 0% 99%); }
+  #big .link { color: hsl(0 0% 80%); }
+  #big .btn { border-color: hsl(0 0% 99%); background: hsl(0 0% 99%); color: var(--fg); }
+</style>
+</head>
+<body>
+<header><h1 id="title"></h1><span class="meta" id="hint"></span></header>
+<main id="grid"></main>
+<footer>
+  <span id="picked">未选</span>
+  <input id="remark" placeholder="要改的地方，或想混搭的（可不填）">
+  <button class="btn" id="copy" disabled>复制我的选择</button>
+</footer>
+<div id="big">
+  <div class="stage"></div>
+  <div class="bar"><span class="no"></span><span class="note"></span><button class="btn" id="bigPick">选这个</button><button class="link" id="bigClose">关闭</button></div>
+</div>
+<script>
+// 只改这三处：标题、画幅（样片 HTML 的设计尺寸），以及每个样片的编号、文件路径（相对本页）、一句话说明。
+const TITLE = "风格样片筛选";
+const SIZE = { w: 1080, h: 1920 };   // 竖屏；横屏片改成 { w: 1920, h: 1080 }
+const SAMPLES = [
+  // { no: "01", file: "01.html", note: "漫画分格：黑白网点 + 一个红色" },
+];
+
+const $ = (s) => document.querySelector(s);
+let picked = null, bigNo = null;
+document.title = TITLE;
+$("#title").textContent = TITLE;
+$("#grid").className = SIZE.h > SIZE.w ? "v" : "h";
+$("#hint").textContent = SAMPLES.length ? `${SAMPLES.length} 个样片 · 每个 3 秒循环 · 点一下选中，双击放大` : "还没有样片：在 SAMPLES 里登记";
+
+// 样片按设计尺寸渲染，再整体缩放到格子里，保证和成片构图一致
+function fit(box, iframe) {
+  const k = box.clientWidth / SIZE.w;
+  box.style.height = SIZE.h * k + "px";
+  Object.assign(iframe.style, { width: SIZE.w + "px", height: SIZE.h + "px", transform: `scale(${k})` });
+}
+
+for (const s of SAMPLES) {
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.dataset.no = s.no;
+  cell.innerHTML = `<div class="frame"><iframe loading="lazy" src="${encodeURI(s.file)}" title="样片 ${s.no}"></iframe></div>
+    <div class="row"><span class="no">${s.no}</span><span class="note"></span><button class="link">放大</button></div>`;
+  cell.querySelector(".note").textContent = s.note || "";
+  cell.addEventListener("click", (e) => { if (e.target.closest(".link")) return openBig(s.no); pick(picked === s.no ? null : s.no); });
+  cell.addEventListener("dblclick", () => { pick(s.no); openBig(s.no); });
+  $("#grid").append(cell);
+}
+const refit = () => document.querySelectorAll(".frame").forEach((b) => fit(b, b.querySelector("iframe")));
+addEventListener("resize", refit);
+refit();
+
+function pick(no) {
+  picked = no;
+  document.querySelectorAll(".cell").forEach((c) => c.classList.toggle("on", c.dataset.no === no));
+  $("#picked").textContent = no ? `已选 ${no}` : "未选";
+  $("#picked").classList.toggle("on", !!no);
+  $("#copy").disabled = !no;
+}
+function openBig(no) {
+  const s = SAMPLES.find((x) => x.no === no);
+  bigNo = no;
+  const st = $("#big .stage");
+  const k = Math.min((innerWidth - 48) / SIZE.w, (innerHeight - 120) / SIZE.h);
+  Object.assign(st.style, { width: SIZE.w * k + "px", height: SIZE.h * k + "px" });
+  st.innerHTML = `<iframe src="${encodeURI(s.file)}" title="样片 ${s.no}"></iframe>`;
+  Object.assign(st.querySelector("iframe").style, { width: SIZE.w + "px", height: SIZE.h + "px", transform: `scale(${k})` });
+  $("#big .no").textContent = s.no;
+  $("#big .note").textContent = s.note || "";
+  $("#big").classList.add("on");
+}
+function closeBig() { $("#big").classList.remove("on"); $("#big .stage").innerHTML = ""; bigNo = null; }
+$("#bigPick").addEventListener("click", () => { pick(bigNo); closeBig(); });
+$("#bigClose").addEventListener("click", closeBig);
+$("#big").addEventListener("click", (e) => { if (e.target.id === "big") closeBig(); });
+addEventListener("keydown", (e) => { if (e.key === "Escape") closeBig(); });
+$("#copy").addEventListener("click", async () => {
+  const r = $("#remark").value.trim();
+  const text = `我选 ${picked}` + (r ? `：${r}` : "");
+  try { await navigator.clipboard.writeText(text); }
+  catch (_) { const ta = document.createElement("textarea"); ta.value = text; document.body.append(ta); ta.select(); document.execCommand("copy"); ta.remove(); }
+  $("#copy").textContent = "已复制，发给 AI";
+  setTimeout(() => { $("#copy").textContent = "复制我的选择"; }, 1800);
+});
+</script>
+</body>
+</html>

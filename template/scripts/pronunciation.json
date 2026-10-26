@@ -1,0 +1,227 @@
+{
+  "_说明": "发音词典：每支片子踩到的读错，都记进来，下一支自动避开。pron.py 写稿后检查，vo 生成时自动套用。见 references/配音.md 第 4 节。",
+  "replace": {
+    "_说明": "写法 → 读给 TTS 的写法。字幕和屏幕照旧用原文，只有声音读替换后的。key 是原文里的写法，value 是读法。",
+    "第六步，描。": "第六步，描画。",
+    "OpenAI": "Open AI",
+    "950": "九五零",
+    "V4.1 Flash": "V4.1，Flash"
+  },
+  "avoid": [
+    {
+      "word": "小皮 AI",
+      "heard": "小排",
+      "why": "multilingual_v2 连读成 pai",
+      "fix": "换 eleven_v3 + sts；或 keywords 守住",
+      "src": "小皮 AI 导航"
+    },
+    {
+      "word": "一上线",
+      "heard": "已上线",
+      "why": "听成另一个事实",
+      "fix": "改成「等它正式发布」",
+      "src": "Claude Fable 5.5"
+    },
+    {
+      "word": "五点五一",
+      "heard": "5.51",
+      "why": "数字后紧跟「一」会被连成小数",
+      "fix": "数字后不要紧跟「一」「已」开头的词",
+      "src": "Claude Fable 5.5"
+    },
+    {
+      "word": "最炸",
+      "heard": "最渣",
+      "why": "意思变反",
+      "fix": "改成「最绝的是」",
+      "src": "Claude Fable 5.5"
+    },
+    {
+      "word": "大厂",
+      "heard": "大汉",
+      "why": "克隆音色念糊",
+      "fix": "改成「真题」等",
+      "src": "面试猫"
+    },
+    {
+      "word": "保精度",
+      "heard": "报警盾",
+      "why": "克隆音色念糊",
+      "fix": "改成「又快又准」",
+      "src": "面试猫"
+    },
+    {
+      "word": "对比着学",
+      "heard": "对比招学",
+      "why": "克隆音色念糊",
+      "fix": "改成「看懂区别」",
+      "src": "面试猫"
+    },
+    {
+      "word": "一万多道题",
+      "heard": "一模多刀",
+      "why": "multilingual_v2 stability 0.5 时念糊",
+      "fix": "stability 调到 0.85",
+      "src": "面试猫"
+    },
+    {
+      "word": "再精挑",
+      "heard": "带金条",
+      "why": "录音咬字不清",
+      "fix": "重新生成那一句（--takes 4）",
+      "src": "面试猫"
+    },
+    {
+      "word": "路由",
+      "heard": "绿油",
+      "why": "克隆音色念糊",
+      "fix": "换说法或交给屏幕",
+      "src": "Claude 宣传片"
+    },
+    {
+      "word": "暗号",
+      "heard": "然后",
+      "why": "克隆音色念糊",
+      "fix": "换说法",
+      "src": "Claude 宣传片"
+    },
+    {
+      "word": "十月",
+      "heard": "日月",
+      "why": "混进音乐后听不清",
+      "fix": "换说法或交给屏幕",
+      "src": "Claude 宣传片"
+    },
+    {
+      "word": "常粘在一起",
+      "heard": "蔫在一起",
+      "why": "CosyVoice longcheng 念糊",
+      "fix": "改成「连在一起」",
+      "src": "手稿变字体"
+    },
+    {
+      "word": "粘成一团",
+      "heard": "蔫成一团",
+      "why": "CosyVoice longcheng 念糊",
+      "fix": "改成「连成一团」",
+      "src": "手稿变字体"
+    },
+    {
+      "word": "字写得",
+      "heard": "自写的",
+      "why": "CosyVoice longcheng 连读",
+      "fix": "改成「他的字很潦草」",
+      "src": "手稿变字体"
+    },
+    {
+      "word": "笔画",
+      "heard": "比划",
+      "why": "同音，意思不变时可接受；句首念重了更像比划",
+      "fix": "放在句中，前面加「把」",
+      "src": "手稿变字体",
+      "level": "warn"
+    },
+    {
+      "word": "C 加两笔",
+      "heard": "两比",
+      "why": "CosyVoice longcheng 念糊",
+      "fix": "改成「C 再加两笔」，「两笔」前留个停顿",
+      "src": "手稿变字体"
+    },
+    {
+      "word": "8 卡机",
+      "heard": "八G",
+      "fix": "写成「八卡服务器」",
+      "src": "DeepSeek推理讲解"
+    },
+    {
+      "word": "显存是仓库",
+      "heard": "现存是仓库",
+      "fix": "句首加「显卡的」：显卡的显存",
+      "src": "DeepSeek推理讲解"
+    },
+    {
+      "word": "编程 Agent",
+      "heard": "Agent 读不准",
+      "fix": "让 Agent 落在句末再停一下（见「编程，Agent，」）",
+      "src": "DeepSeek推理讲解"
+    },
+    {
+      "word": "个 token",
+      "heard": "用户：数字后直接接 token，不加「个」",
+      "fix": "不加「个」。数字紧接 token 时 CosyVoice 常把 token 读坏（凑根/OK/抽K）；把 token 提到数字前最稳：「一天吞吐的 token，有一百五十五万亿」「每次输入的 token，有七万七千」（2026-10-23 用户亲耳确认）",
+      "src": "DeepSeek推理讲解",
+      "level": "fail"
+    },
+    {
+      "word": "编程，Agent，",
+      "heard": "Agent 尾音 t 被吞",
+      "fix": "让 Agent 落在句末：「大家都用 Agent。」后加 [[停200ms]]；2026-10-23 用户选 agent-6-s7",
+      "src": "DeepSeek推理讲解",
+      "level": "warn"
+    }
+  ],
+  "polyphones": {
+    "_说明": "多音字：只在 ctx 列出的上下文里检查（正则，匹配到含该字的片段才查），读成 bad 就提醒。pron.py 用 pypinyin 按词组判断读音。",
+    "行": {
+      "ctx": "[一二两三几这那每]行(?![业动为走人李书])",
+      "bad": "xíng",
+      "when": "「一行字 / 这行代码」该读 háng",
+      "fix": "改成「一句 / 这句」，或 replace 里写「一航」"
+    },
+    "重": {
+      "ctx": "重(描|画|写|做|试|跑|来|新|复|算|排)",
+      "bad": "zhòng",
+      "when": "「重描 / 重新」该读 chóng",
+      "fix": "say 里写 [[重算|chong2 suan4]] 这类拼音标注（CosyVoice 走 SSML）"
+    },
+    "长": {
+      "ctx": "长(度|图|句|文|期|题)|多长",
+      "bad": "zhǎng",
+      "when": "该读 cháng",
+      "fix": "看上下文"
+    },
+    "调": {
+      "ctx": "调(参|整|节|优|试|得好|教)",
+      "bad": "diào",
+      "when": "「调得好 / 调参」该读 tiáo（2026-10-23 DeepSeek推理讲解）",
+      "fix": "say 里写 [[调|tiao2]]"
+    },
+    "数": {
+      "ctx": "数(据|字|量|值)",
+      "bad": "shǔ",
+      "when": "该读 shù",
+      "fix": "看上下文"
+    },
+    "得": {
+      "ctx": "[写说做跑看听]得|就得|还得|必须得",
+      "bad": "dé",
+      "when": "「写得出来」读 de；「就得陪着」读 děi",
+      "fix": "say 里写 [[得|dei3]]"
+    },
+    "干": {
+      "ctx": "干(等|着急|坐|瞪眼)|[多会能]干(点|活)",
+      "bad": "",
+      "when": "「干等」读 gān，「干活」读 gàn（2026-10-23 用户指出）",
+      "fix": "say 里写 [[干等|gan1 deng3]] / [[干|gan4]]"
+    },
+    "华": {
+      "ctx": "华为",
+      "bad": "",
+      "when": "华为读 Huá wéi，pypinyin 判成 wèi",
+      "fix": "say 里写 [[华为|hua2 wei2]]"
+    },
+    "空": {
+      "ctx": "空(档|当|隙|闲)",
+      "bad": "kōng",
+      "when": "「空档」读 kòng dàng",
+      "fix": "say 里写 [[空档|kong4 dang4]]"
+    },
+    "结": {
+      "ctx": "结果",
+      "bad": "",
+      "when": "「结果」读 jié guǒ（用户报过听着不对，统一钉死）",
+      "fix": "say 里写 [[结果|jie2 guo3]]"
+    }
+  }
+}
