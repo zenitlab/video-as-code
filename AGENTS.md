@@ -333,3 +333,23 @@ python3 scripts/check_video.py out/final-4k.mp4 --scale 2      # 必须 0 ERROR�
 | `references/风格库/README.md` | 第 2、6 步：外部风格库——花叔 8 种讲解语法（`HuashuClip` 组件直接用）、35 种艺术风格配方，Lemo 59 种影片风格（STYLE.md + 整片源码），岚叔 12 种讲解风格（横屏原版，竖屏要重排），镜头语言、节奏方法 |
 | `references/踩坑记录.md` | 动手前扫一遍；遇到怪问题先查这里 |
 | `references/案例复盘.md` | 动手前读一遍：5 支已交付成片各自的风格、反馈和改法，以及 `timing.json` 里 `music` 拼接表、`voice` 旁白表的真实写法。**只学方法，不抄风格** |
+
+---
+
+## 提交规范（改本仓库时）
+
+提交信息一律按 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/v1.0.0/)：
+
+```
+<type>(<scope>): <subject>
+
+<body：为什么改、改了什么，每行不超过 72 字符>
+
+<footer：BREAKING CHANGE: … / Closes #…>
+```
+
+- **type**：`feat` 新功能 · `fix` 修 bug · `docs` 只改文档 · `style` 格式 · `refactor` 重构 · `perf` 性能 · `test` 测试 · `build` 依赖与构建 · `ci` · `chore` 杂项 · `revert` 回滚。
+- **scope**（可选）：`template`、`scripts`、`components`、`references`、`style-lib`、`agents`、`readme`、`docs`。
+- **subject**：英文祈使句、小写开头、不超过 72 字符、结尾不加句号，如 `feat(scripts): add film_gate density check`。
+- 一个提交只做一件事；不兼容的改动在 footer 写 `BREAKING CHANGE:`。
+- 作者用仓库内配置（`git config user.name/user.email`），不要改全局配置。
