@@ -3,7 +3,7 @@
 python3 scripts/inspire.py 知识讲解 KV                 三个库一起搜，关键词全部命中才列出
 python3 scripts/inspire.py --lib motion --cat 知识讲解 Transformer
 python3 scripts/inspire.py --lib skills --kind explainer 中文
-python3 scripts/inspire.py --show motion:2103683057689522564   打印一条的全文（含提示词原文）
+python3 scripts/inspire.py --show motion:2103683057689522564   打印一条的全文（含提示词原文），开头列出封面图、可播放视频、原帖的在线地址
 
 库：videos = awesome-opus5-5-videos（703 条 Opus 5.5 作品 + 提示词）
     motion = awesome-ai-motion（1417 个作品，分类：知识讲解 / 产品宣传 / 交互演示 / 短动效 / 叙事短片 / 角色动画 / 音乐与歌词）
@@ -37,6 +37,9 @@ def vendor_dir():
 V = vendor_dir()
 
 
+MOTION_REPO = "guanmo-ai/awesome-ai-motion"
+
+
 def load():
     out = []
     p = os.path.join(V, "awesome-opus5-5-videos", "data", "videos.json")
@@ -44,7 +47,8 @@ def load():
         for x in json.load(open(p, encoding="utf-8")):
             out.append(dict(lib="videos", id=x["slug"], cat=x.get("category", ""), title=f"@{x.get('author','')}",
                             text=x.get("prompt", "") or "", tags=" ".join(x.get("tech_tags", [])), url=x.get("post_url", ""),
-                            file=os.path.join(V, "awesome-opus5-5-videos", "prompts", x["slug"] + ".md")))
+                            file=os.path.join(V, "awesome-opus5-5-videos", "prompts", x["slug"] + ".md"),
+                            links=[("封面图", x.get("poster_url")), ("重制版（可播放）", x.get("skillry_url")), ("作者原帖", x.get("post_url"))]))
     p = os.path.join(V, "awesome-ai-motion", "data", "cases.json")
     if os.path.exists(p):
         for x in json.load(open(p, encoding="utf-8"))["cases"]:
@@ -53,13 +57,19 @@ def load():
                             text=" ".join([x.get("summary", ""), x.get("titleEn", ""), x.get("summaryEn", ""), pr.get("text", "") or ""]),
                             tags=f"{(x.get('media') or {}).get('durationSeconds', '')}s 收藏{(x.get('metrics') or {}).get('bookmarks', '')}",
                             url=(x.get("source") or {}).get("url", ""), file=os.path.join(V, "awesome-ai-motion", "cases", x["id"] + ".md"),
-                            prompt_file=os.path.join(V, "awesome-ai-motion", "prompts", x["id"] + ".txt")))
+                            prompt_file=os.path.join(V, "awesome-ai-motion", "prompts", x["id"] + ".txt"),
+                            # 封面图本身没进仓库（55 MB）；原合集仓库里的同一张图、画廊、原视频都能在线看
+                            links=[("封面图", f"https://raw.githubusercontent.com/{MOTION_REPO}/main/{(x.get('cover') or {}).get('path')}" if (x.get("cover") or {}).get("path") else None),
+                                   ("画廊播放", f"https://guanmo-ai.github.io/awesome-ai-motion/#case-{x['id']}"),
+                                   ("原视频", (x.get("webPlayback") or {}).get("url") or (x.get("cover") or {}).get("sourceUrl")),
+                                   ("作者原帖", (x.get("source") or {}).get("url"))]))
     p = os.path.join(V, "awesome-claude-video-skills", "data", "skills.json")
     if os.path.exists(p):
         for x in json.load(open(p, encoding="utf-8"))["skills"]:
             out.append(dict(lib="skills", id=x["repo_full_name"], cat=x.get("kind", ""), title=x["repo_full_name"],
                             text=x.get("description", "") or "", tags=f"★{x.get('stars','')} {x.get('license','')} {x.get('security_grade','')}",
-                            url="https://github.com/" + x["repo_full_name"], file=None))
+                            url="https://github.com/" + x["repo_full_name"], file=None,
+                            links=[("仓库", "https://github.com/" + x["repo_full_name"])]))
     return out
 
 
@@ -78,7 +88,12 @@ def main():
         r = next((r for r in rows if r["lib"] == lib and r["id"] == id_), None)
         if not r:
             sys.exit("没有这一条")
-        print(f"{r['title']}  {r['url']}\n")
+        print(f"{r['title']}  {r['url']}")
+        # 在线看画面（要联网）：封面图、可播放的视频、原帖
+        for name, u in r.get("links", []):
+            if u:
+                print(f"  {name}：{u}")
+        print()
         for f in [r.get("file"), r.get("prompt_file")]:
             if f and os.path.exists(f):
                 print(open(f, encoding="utf-8").read())
