@@ -144,3 +144,5 @@ import { HuashuClip } from "../components/HuashuClip";
 | Lemo 字幕导出、采样乐器 | `template/scripts/vendor/lemo_srt.py`、`lemo_sampler.py` | 出 SRT；真乐器采样（要 soundfile、soxr 和采样包） |
 | Lemo 自定义风格流程 | `lemo/MY-STYLES.md`、`lemo/AGENTS.md` | 把一种风格改成自己的、保存复用 |
 | 视频 Skill 导航全文 | `合集/awesome-claude-video-skills/README.zh-CN.md` | 347 个仓库的分类说明、16 个实测排名 |
+| 归藏起步工程 | `guizang/starter/`（`src/engine.js` GSAP 主时间轴 + `onRender`/`onDrive`、`client.jsx` 挂真实组件、`fake-api.js` + `fixtures/` 假数据、`render.mjs`/`stills.mjs`/`cover.mjs`） | 宣传片要用产品真实 React 组件代替截图时，照 `component-pipeline.md` 和这套工程改 |
+| ClaudeAnimationBase 角色参考图 | `ClaudeAnimationBase_docs/`（31 种情绪、视角） | 画手绘角色表情时对照 |
