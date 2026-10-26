@@ -127,3 +127,20 @@ import { HuashuClip } from "../components/HuashuClip";
 
 - 灵感检索：`python3 scripts/inspire.py 知识讲解 KV` 在三个合集里搜作品、提示词原文和视频类 Skill。合集数据在 `合集/`：awesome-opus5-5-videos（703 条作品 + 提示词）、awesome-ai-motion（1417 个作品，不含封面图）、awesome-claude-video-skills（347 个 Skill）。Skill 用法下先设环境变量 `VIDEO_AS_CODE_HOME=<工具目录>`。
 
+## 五、第二轮补齐（上一轮漏掉、本工具能用的部分）
+
+| 内容 | 位置 | 用途 |
+|---|---|---|
+| 归藏的方法文档 12 篇 | `guizang/*.md` | `direction.md`（从产品气质推导手法、反重复）、`story-and-copy.md`（分镜文案）、`visual-vocabulary.md`（视觉词汇）、`component-pipeline.md`（挂真实 React 组件代替截图）、`audio-and-qa.md`、`review.md`（联系表 + 转场条带审片）、`cover.md`（封面）、`case-study.md` |
+| 归藏 fx-lab 4 种特效 | `guizang/fx-lab/`（warp 流线场、glyph-field 字符场、orbit 环绕、settle 落定） | 纯时间函数，可直接改写进分镜 `draw(g, t)`；README 里写了每种从产品哪里取参数、什么时候不用 |
+| 归藏配乐合成示例 | `guizang/score-example-keys.py`、`score-example-cinematic.py` | 代码写原创配乐的两个起点 |
+| 归藏新闻讲解扩展 | `template/scripts/vendor/guizang_news/` | 文字简报 → 配音、按实测时长排时间轴、垫乐、混音的一整套脚本，做「AI 早报」这类资讯片时参考 |
+| 花叔参考片拆解工具 | `template/scripts/vendor/huashu_analyze/`（`breakdown.py` 等 5 个） | 把一支参考视频拆成接触表、逐帧差、节拍网格、转场接触表、运动热图：用户给参考片时先跑它 |
+| 花叔片段渲染与版面审计 | `template/scripts/vendor/huashu_render.py`、`huashu_audit_clip.py` | 不进 Remotion 时单独渲一段 HuashuClip；`--audit` 查文字出界、字太小、叠字 |
+| 花叔 8 种语法的示范片 | `huashu-scenes/demos/` | 每种讲解语法一支完整示范，写 spec 时照着抄 |
+| 花叔参考片复刻 | `huashu-scenes/reference_films/`（SpaceX 四版、Rick & Morty） | 讲解员式（y6）、白板笔顺的完整参考实现 |
+| Lemo 公共库 | `lemo/core/`（`lib.js` 确定性工具、`post/crt.js` CRT 录像带后期、`three/post.js` 3D 景深辉光后期、`fonts/`、`assets/polyhaven` 3D 贴图道具） | Lemo 各风格 demo 依赖它们，改写 Lemo 风格时一起参照 |
+| Lemo 读字时长自检 | `template/scripts/vendor/lemo_readcheck.mjs` | 页面暴露 `TEXTS(t)` 后量每段字在屏上停够没有（中文 4.5 字/秒），对应 AGENTS.md「节奏：底线」 |
+| Lemo 字幕导出、采样乐器 | `template/scripts/vendor/lemo_srt.py`、`lemo_sampler.py` | 出 SRT；真乐器采样（要 soundfile、soxr 和采样包） |
+| Lemo 自定义风格流程 | `lemo/MY-STYLES.md`、`lemo/AGENTS.md` | 把一种风格改成自己的、保存复用 |
+| 视频 Skill 导航全文 | `合集/awesome-claude-video-skills/README.zh-CN.md` | 347 个仓库的分类说明、16 个实测排名 |
