@@ -1,6 +1,6 @@
 # 风格库
 
-从 8 个外部项目拷来的风格、画法、方法文档和作品合集。用得到的部分都在本目录和 `template/` 里，跟着仓库走；完整的原始仓库另存在 `<工具目录>/vendor/`（不进 git，没有也不影响使用）。第 2 步出风格样片时从这里挑；第 6 步写画法时直接改用这里的代码。
+从 9 个外部项目拷来的风格、画法、方法文档和作品合集。用得到的部分都在本目录和 `template/` 里，跟着仓库走；完整的原始仓库另存在 `<工具目录>/vendor/`（不进 git，没有也不影响使用）。第 2 步出风格样片时从这里挑；第 6 步写画法时直接改用这里的代码。
 
 ## 一、花叔 huashu-art-motion · 8 种讲解语法（可直接在 Remotion 里用）
 
@@ -119,7 +119,21 @@ import { HuashuClip } from "../components/HuashuClip";
 
 运行时依赖（原项目从网上加载，本工具改写时要换成本地或去掉）：GSAP 3.14.2、three.js r181（V6、V9 用）、Google Fonts 子集。
 
-## 四、其他
+## 四、HeyChengC vibe-knowledge-film · 抖音「Vibe知识大赏」两种爆款画风
+
+原样拷在 `vibe-knowledge/`（MIT；两段 30 MB 的样片 GIF 没拷，看 `examples/look_*.jpg` 拼图）。它是专门拆了几条 #vibe知识大赏 爆款后总结出的两套外观，方法部分早先已改写进 `references/讲解设计.md`，这里补上引擎和外观规格。
+
+| 外观 | 适合 | 规格 | 样片 |
+|---|---|---|---|
+| C 夜曲 | 抽象概念、看不见的机制（数学、信息、物理、AI 原理），拆成几个当场可演的小实验 | 暗场 + 大字 + 带刻度的仪器 + 画得像实物的东西，全幅辉光、胶片颗粒、四角压暗，声音可完全合成 | `examples/fold_C/`（《折叠》，蛋白质折叠，开头 33 秒，带分镜表）、`look_fold_C.jpg` |
+| B 寓言 | 心理 / 行为机制，从动物或生活场景讲到「你该怎么办」 | 每场一幅代码画的扁平插画（远景 / 角色 / 前景三层视差），暖色暗角，片名卡回暗场 | `examples/pigeon_B/`（《鸽子的迷信》开头 33 秒，带分镜表）、`look_pigeon_B.jpg` |
+
+- 规格：色值、字体、版式、片名卡、声音全在 `vibe-knowledge/references/worlds.md`；常见句型、转场、动效手感在 `visual-grammar.md`；字幕稿写法在 `script.md`。
+- 引擎：`engine/vk.js`（`seek(t)` 逐帧确定性画布）、`vk-kit.js`（`PAL`、`SUB` 默认值就是上表的规格）、`render.py`（`--sheet` / `--stills` / `--motion` / `--clip` 审片）、`audio.py`（事件音合成）、`get_fonts.py`。
+- 和本工具的差别：原版是 **16:9、无旁白、读底部字幕**；本工具默认竖屏、有旁白。用夜曲 / 寓言时，色值、字体、辉光和颗粒照搬，版式按竖屏重排（字幕区改到平台安全区内），画面改写成 Remotion 分镜或 `HuashuClip` 镜头。
+- `references/analysis.md`、`prompts.md` 第二节、`examples/stim_B`、`info_C` 是对别人成片的拆解和复刻，只学做法，不照搬进片子。
+
+## 五、其他
 
 - `ClaudeAnimationBase_ANIMATION_GUIDE.md`：手绘角色动画的节奏规则（一次只让观众看懂一件事、看懂后停一下）、31 种情绪、笔刷擦除转场。引擎在 `template/public/vendor/cab/`（p5.js + p5.brush），自审渲染脚本 `template/scripts/vendor/cab_render.mjs`（`--sheet` / `--strip` / `--crop-at`）。
 
@@ -127,7 +141,7 @@ import { HuashuClip } from "../components/HuashuClip";
 
 - 灵感检索：`python3 scripts/inspire.py 知识讲解 KV` 在三个合集里搜作品、提示词原文和视频类 Skill。合集数据在 `合集/`：awesome-opus5-5-videos（703 条作品 + 提示词）、awesome-ai-motion（1417 个作品，不含封面图）、awesome-claude-video-skills（347 个 Skill）。Skill 用法下先设环境变量 `VIDEO_AS_CODE_HOME=<工具目录>`。
 
-## 五、第二轮补齐（上一轮漏掉、本工具能用的部分）
+## 六、第二轮补齐（上一轮漏掉、本工具能用的部分）
 
 | 内容 | 位置 | 用途 |
 |---|---|---|
