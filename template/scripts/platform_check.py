@@ -16,7 +16,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 1080×1920 坐标：side 左右裁掉的宽度，top / bottom 顶部、底部遮挡边界，right 右侧按钮宽度（从 right_from 往下）
 ZONES = {
-    "douyin": dict(side=0, top=230, bottom=1440, right=160, right_from=860),
+    "douyin": dict(side=0, top=230, bottom=1360, right=160, right_from=860),  # 2026-10-28 用户抖音预览截图：账号名 + 4 行描述 + 音乐行从 y≈1470 起，留余量
     "xhs": dict(side=99, top=230, bottom=1560, right=0, right_from=0),
     "wx": dict(side=0, top=170, bottom=1500, right=150, right_from=860),
 }
