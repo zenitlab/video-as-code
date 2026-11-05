@@ -2,7 +2,7 @@
 
 # Video as Code
 
-**用 Claude Opus 5.5 写代码做视频：一句话交代选题，AI 自己调研、写稿、配音、配乐、画画面、剪辑和校验，交给你一支能直接发抖音、小红书、视频号的成片。**
+**用 AI 协作制作视频：一句话交代选题，按内容与风格选择合适的 Skill，完成调研、写稿、配音、配乐、画面、剪辑和校验，交付适合抖音、小红书、视频号的成片。**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Remotion](https://img.shields.io/badge/Remotion-4-0B84F3)
@@ -21,6 +21,32 @@
 这个项目把整套制作流程写成了一份 AI 能读懂、能照着执行的工作规范（`AGENTS.md`），并配上一个 Remotion 视频工程模板和十几个辅助脚本。你可以把仓库克隆到本地，用 Cursor、Claude Code、Codex 这类 AI 编程工具打开目录；也可以把它安装成一个 Skill，在任何项目里随时调用。无论哪种方式，你都只需要用一句话说明想给什么做宣传片。至于产品有哪些卖点、该用什么风格、哪些画面能打动人，这些不确定的事情都由 AI 先去调研，再拿着具体的选项来问你。
 
 这里说的「产品」范围很广，App、网站、SaaS 工具、开源项目、课程教程、AI 模型、社区和线下活动都可以，只要它有能拿出来展示的界面或作品。
+
+## 根据内容选择 Skill
+
+本项目既可制作产品宣传片，也可制作知识讲解和温馨手绘故事。`video-as-code` 负责整体流程，AI 会根据题材、受众、平台和动效需求选择主要制作 Skill，并在需求确认中说明理由，先出风格样图或动画样片供你选择。不会把上一支片子的风格固定套到下一支。
+
+| 内容或画面需求 | 优先评估的 Skill / 路线 |
+|---|---|
+| 画笔逐步绘制、白板讲解、温馨手绘 | `srt-whiteboard-animation` |
+| 数字人口播、多风格科普 | `lanshu-create-ai-presenter-video` |
+| 软件界面、产品宣传、版本发布 | `guizang-product-video-skill` / Remotion |
+| 原理推演、动态图解、艺术动画 | `huashu-art-motion` |
+| 多种艺术风格短片 | `lemo-opuscar` |
+| 等距技术插图 | `anatomy`（辅助画面） |
+| 无旁白、16:9横屏字幕知识片 | `vibe-knowledge-film` |
+
+其中 `vendor/` 下的是本地参考源码，未必在新克隆中存在，也不代表都注册为自动加载的 Skill。实际使用前会检查文件和环境。详细入口、选择规则与回退方式见 [视频 Skill 选择指南](references/视频Skill选择.md)。已确认的系列风格与改版继续沿用，除非你要求更换。
+
+### 当前项目安装的白板 Skill
+
+已从 [geeklee/srt-whiteboard-animation](https://github.com/geeklee/srt-whiteboard-animation) 的 **main 分支**安装到当前项目：
+
+```text
+.claude/skills/srt-whiteboard-animation/SKILL.md
+```
+
+这是项目级安装，不是全局安装；`main` 是来源分支，不是额外的一层目录。源码、脚本、资源与原始 LICENSE 一起保留。它负责按叙事顺序逐步绘制图片；画幅、精细程度、笔速、字幕、旁白和配乐按本次需求调整。安装不会自动生成图片、创建运行环境或调用付费接口；制作时再检查所需依赖。
 
 ## 快速开始
 
@@ -179,6 +205,7 @@ video-as-code/
 ├── AGENTS.md        # AI 的工作规范，整个项目的核心
 ├── SKILL.md         # 安装成 Skill 时的入口，内容只是指向 AGENTS.md
 ├── CLAUDE.md        # 让 Claude Code 也读取 AGENTS.md
+├── .claude/skills/  # 当前项目的 Skill：anatomy、srt-whiteboard-animation
 ├── references/      # 各阶段的详细方法：需求问询、风格菜单、素材获取、配乐卡点、配音、校验清单、踩坑记录、案例复盘
 ├── template/        # 每个新项目都从这里复制：Remotion 工程、网页播放页、全套脚本
 ├── outputs/         # 克隆用法下，你的成片会放在这里（不会被提交到 Git）

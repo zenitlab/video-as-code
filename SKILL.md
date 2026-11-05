@@ -1,11 +1,13 @@
 ---
 name: video-as-code
-description: 为产品、网站、App、SaaS、开源项目、课程、AI 模型或活动制作有商业质感的宣传片（4K MP4 + 网页版），流程包括调研、需求问询、风格样帧、真实页面 4K 截图、配乐卡点、AI 旁白、混音和自动校验。用户说「做宣传片」「做产品介绍视频」「做推广视频 / 预告片」「给这个项目做个视频」，或者要求 promo video、product trailer、launch video 时使用。
+description: 为产品、网站、App、开源项目、AI模型、课程、科普选题或故事制作视频；按内容、受众、风格与动效需求选择适合的制作Skill，统筹调研、需求确认、风格样片、素材、旁白配乐、制作、校验和多平台导出。用户说「做宣传片」「做产品介绍」「做科普视频」「做手绘讲解」「给这个题材做个视频」，或要求promo video、explainer、product trailer时使用。
 ---
 
 # 产品宣传视频制作器
 
 完整的工作规范在本文件同目录的 `AGENTS.md`。开始任何工作之前，先用读文件工具把它从头到尾读一遍，然后严格照它执行；各阶段的详细方法在同目录的 `references/` 里，按 AGENTS.md 的指引按需读取。
+
+每次新制作先阅读 `references/视频Skill选择.md`，按内容、受众、风格与动效需求选择主要制作 Skill；本入口负责统筹，不固定只用 Remotion 或白板。当前项目已安装白板工具 `.claude/skills/srt-whiteboard-animation/SKILL.md`。用户已确认的风格、声音和制作路线在改版时继续沿用。
 
 作为 Skill 被调用时，路径这样对应（AGENTS.md 的「两种用法与路径约定」一节有完整说明）：
 

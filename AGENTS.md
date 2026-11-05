@@ -30,6 +30,20 @@
 
 ---
 
+## 按内容与风格选择制作 Skill（每次新项目必做）
+
+本项目以 `video-as-code` 统筹调研、需求确认、素材、声音、校验和交付；画面制作不固定使用某个 Skill。接到新题材时，先读 [视频 Skill 选择指南](references/视频Skill选择.md)，结合内容、受众、平台、视觉风格、动效需求与现有素材，选择一个主要制作 Skill，必要时再组合局部工具。不要因为上一支片子用了白板，就把下一支也做成白板。
+
+- 白板逐步绘制、温馨手绘或需要画笔带出图像：优先评估本项目 `.claude/skills/srt-whiteboard-animation/SKILL.md`。
+- 数字人、角色口播、多风格科普：评估 `vendor/lanshu-create-ai-presenter-video/SKILL.md`。
+- 软件产品、真实界面及版本发布：评估 `vendor/guizang-product-video-skill/SKILL.md`，或本项目默认 Remotion 路线。
+- 艺术动画、原理推演和动态图解：评估 `vendor/huashu-art-motion/SKILL.md`；多种艺术短片评估 `vendor/lemo-opuscar/plugin/skills/lemo-opuscar/SKILL.md`。
+- 等距技术插图：用 `.claude/skills/anatomy/SKILL.md` 辅助；无旁白、横屏字幕知识片才评估 `references/风格库/vibe-knowledge/SKILL.md`。
+
+选择前确认入口真实存在并阅读所选 Skill；缺失的工具不能当成已安装。把「主 Skill、辅助工具、选择理由、实际渲染方式」写入 `需求确认.md`，和风格样片一起供用户审阅。用户指定的 Skill、画幅、风格、声音及已给出的授权优先；外部 Skill 的默认画幅、风格和确认步骤不能导致重复询问已经明确确认的事项，也不能取消用户要求的审阅。改版沿用原片流程与风格，除非用户明确要求更换。
+
+新项目仍从 `template/` 建立完整工程；外部 Skill 可承担其中的绘制或渲染，所有配置、中间文件和成片写在该项目 `工程/` 内，不能写入 `.claude/skills/` 或全局 Skill 目录。按实际渲染引擎执行相应的素材、字幕、音画、规格与平台遮挡检查；不把未运行的检查写成通过，也不把某一种引擎当成全部项目的强制依赖。
+
 ## 两种用法与路径约定
 
 本工具既可以克隆下来直接打开，也可以作为 Skill 安装到 AI 工具里，在别的工作区调用。两种用法共用这一份规范，只是目录位置不同。下文统一用两个占位符：

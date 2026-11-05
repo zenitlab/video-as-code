@@ -27,5 +27,10 @@ Thumbs.db
 # 项目 Skill：从 GitHub 克隆的第三方 Skill，自带 LICENSE，需要时重新 clone
 .claude/skills/anatomy/
 
+# 项目白板 Skill：保留源码与 LICENSE，忽略本地环境和运行产物
+.claude/skills/srt-whiteboard-animation/.venv/
+.claude/skills/srt-whiteboard-animation/__pycache__/
+.claude/skills/srt-whiteboard-animation/out/
+
 # 外部视频项目源码（只当资料与代码来源，体积大，不进 git）
 /vendor/
