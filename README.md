@@ -24,11 +24,12 @@
 
 ## 根据内容选择 Skill
 
-本项目既可制作产品宣传片，也可制作知识讲解和温馨手绘故事。`video-as-code` 负责整体流程，AI 会根据题材、受众、平台和动效需求选择主要制作 Skill，并在需求确认中说明理由，先出风格样图或动画样片供你选择。不会把上一支片子的风格固定套到下一支。
+本项目既可制作产品宣传片，也可制作知识讲解、温馨手绘故事和历史人物地图叙事。`video-as-code` 负责整体流程，AI 会根据题材、受众、平台和动效需求选择主要制作 Skill，并在需求确认中说明理由，先出风格样图或动画样片供你选择。不会把上一支片子的风格固定套到下一支。
 
 | 内容或画面需求 | 优先评估的 Skill / 路线 |
 |---|---|
 | 画笔逐步绘制、白板讲解、温馨手绘 | `srt-whiteboard-animation` |
+| 历史人物生平、3D地形人生轨迹 | `lifetrail`（战役与城市叙事需另行适配） |
 | 数字人口播、多风格科普 | `lanshu-create-ai-presenter-video` |
 | 软件界面、产品宣传、版本发布 | `guizang-product-video-skill` / Remotion |
 | 原理推演、动态图解、艺术动画 | `huashu-art-motion` |
@@ -47,6 +48,14 @@
 ```
 
 这是项目级安装，不是全局安装；`main` 是来源分支，不是额外的一层目录。源码、脚本、资源与原始 LICENSE 一起保留。它负责按叙事顺序逐步绘制图片；画幅、精细程度、笔速、字幕、旁白和配乐按本次需求调整。安装不会自动生成图片、创建运行环境或调用付费接口；制作时再检查所需依赖。
+
+### 当前项目安装的历史地图 Skill
+
+已将 [luwill/lifetrail](https://github.com/luwill/lifetrail) 的 **main 分支**源码安装到 `.claude/skills/lifetrail/`，包括 `SKILL.md`、Three.js 模板、脚本、参考文档和 MIT 许可证；这是项目级安装，不影响全局环境。来源版本与接入方法见 [lifetrail 接入说明](references/lifetrail接入.md)。
+
+它适合“给苏轼做一部人生轨迹视频”这类主要活动在中国的历史人物题材，以半年为步长，在3D地形上展示行迹。上游默认1920×1080、30fps；公元前出生的人物暂不支持。战役、城市与公司发展不是开箱即用题材，9:16及三平台版本也要单独适配，不能把人物模板直接当作四渡赤水战役模板。
+
+安装仅收录源码，不自动下载地形、不安装运行依赖、不生成视频。后续新视频仍先确认内容、风格和声音。上游代码采用 MIT，但默认 EOX 卫星影像是 **CC BY-NC-SA 4.0**，商业使用需要另行授权或换用适用的底图；不要把代码许可当作全部素材许可。
 
 ## 快速开始
 
@@ -205,7 +214,7 @@ video-as-code/
 ├── AGENTS.md        # AI 的工作规范，整个项目的核心
 ├── SKILL.md         # 安装成 Skill 时的入口，内容只是指向 AGENTS.md
 ├── CLAUDE.md        # 让 Claude Code 也读取 AGENTS.md
-├── .claude/skills/  # 当前项目的 Skill：anatomy、srt-whiteboard-animation
+├── .claude/skills/  # 项目 Skill：lifetrail、srt-whiteboard-animation（anatomy本地可选）
 ├── references/      # 各阶段的详细方法：需求问询、风格菜单、素材获取、配乐卡点、配音、校验清单、踩坑记录、案例复盘
 ├── template/        # 每个新项目都从这里复制：Remotion 工程、网页播放页、全套脚本
 ├── outputs/         # 克隆用法下，你的成片会放在这里（不会被提交到 Git）

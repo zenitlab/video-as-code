@@ -34,3 +34,10 @@ Thumbs.db
 
 # 外部视频项目源码（只当资料与代码来源，体积大，不进 git）
 /vendor/
+
+# 项目历史地图 Skill：跟踪上游源码，忽略运行环境和产物
+.claude/skills/lifetrail/.venv/
+.claude/skills/lifetrail/out/
+.claude/skills/lifetrail/.cache/
+.claude/skills/lifetrail/template/out/
+.claude/skills/lifetrail/template/assets/terrain/

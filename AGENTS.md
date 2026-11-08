@@ -34,6 +34,7 @@
 
 本项目以 `video-as-code` 统筹调研、需求确认、素材、声音、校验和交付；画面制作不固定使用某个 Skill。接到新题材时，先读 [视频 Skill 选择指南](references/视频Skill选择.md)，结合内容、受众、平台、视觉风格、动效需求与现有素材，选择一个主要制作 Skill，必要时再组合局部工具。不要因为上一支片子用了白板，就把下一支也做成白板。
 
+- 历史人物生平、3D地形人生轨迹：优先评估本项目 `.claude/skills/lifetrail/SKILL.md`，并读 `references/lifetrail接入.md`。上游半年步模型用于人物生平；战役、城市、公司叙事需另行适配，不能宣称开箱即用。上游横屏、声音、时长和底图许可按本片确认，不覆盖用户已确认的选择。
 - 白板逐步绘制、温馨手绘或需要画笔带出图像：优先评估本项目 `.claude/skills/srt-whiteboard-animation/SKILL.md`。
 - 数字人、角色口播、多风格科普：评估 `vendor/lanshu-create-ai-presenter-video/SKILL.md`。
 - 软件产品、真实界面及版本发布：评估 `vendor/guizang-product-video-skill/SKILL.md`，或本项目默认 Remotion 路线。

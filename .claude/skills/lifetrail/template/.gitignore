@@ -1,0 +1,10 @@
+node_modules/
+out/
+*.mp4
+assets/terrain
+narration/*/audio/
+__pycache__/
+.pytest_cache/
+.DS_Store
+.lifetrail_incomplete
+data/_build/cache/
