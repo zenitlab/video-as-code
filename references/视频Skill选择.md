@@ -4,7 +4,7 @@
 
 ## 选择顺序
 
-1. 明确内容类型：产品介绍、原理科普、新闻解读、情感故事、历史人物地图叙事、数字人口播或纯字幕知识片。
+1. 明确内容类型：产品介绍、原理科普、新闻解读、情感故事、历史人物地图叙事、Q版历史故事、数字人口播或纯字幕知识片。
 2. 明确最需要观众看懂的动作：操作、比较、推演、逐步绘制、角色表演或读字幕。
 3. 对照平台、时长、素材和用户偏好选择一个主 Skill。可用其他工具补局部图表、插画或音效，避免多套风格拼在一起。
 4. 检查入口文件存在，阅读所选 Skill，并核对运行环境。目录缺失就使用可行的已有路线；用户指定的必要 Skill 缺失时先解决安装，不能假装调用成功。
@@ -17,6 +17,7 @@
 | 内容与需求 | 候选 | 入口 | 注意 |
 |---|---|---|---|
 | 温馨手绘、白板科普、画笔逐步绘制 | srt-whiteboard-animation | [.claude/skills/srt-whiteboard-animation/SKILL.md](../.claude/skills/srt-whiteboard-animation/SKILL.md) | 适合逐步讲清关系和过程；笔速、信息量、画幅按需求调整，不能让观众一直等图画完 |
+| Q版小人演历史、动作喜剧、字幕故事讲解 | chibi-history-explainer | [.claude/skills/chibi-history-explainer/SKILL.md](../.claude/skills/chibi-history-explainer/SKILL.md) | Canvas代码角色表演；默认横屏无旁白，竖屏及声音需适配，见[接入说明](Q版历史讲解接入.md) |
 | 历史人物生平、3D地形人生轨迹 | lifetrail | [.claude/skills/lifetrail/SKILL.md](../.claude/skills/lifetrail/SKILL.md) | 主要活动在中国、非公元前出生的人物；上游默认横屏与半年步，战役及竖屏需适配，见[lifetrail接入](lifetrail接入.md) |
 | 数字人口播、角色讲解、多风格科普 | lanshu-create-ai-presenter-video | [vendor/lanshu-create-ai-presenter-video/SKILL.md](../vendor/lanshu-create-ai-presenter-video/SKILL.md) | 涉及真人形象时使用已获授权素材；口播不是所有科普的默认路线 |
 | 软件产品、功能展示、版本发布 | guizang-product-video-skill / 默认 Remotion | [vendor/guizang-product-video-skill/SKILL.md](../vendor/guizang-product-video-skill/SKILL.md)；[template/](../template/) | 真实界面、操作和作品是重点，避免仅靠插画替代产品证据 |
@@ -33,6 +34,7 @@
 - **DeepSeek 与 Claude 的机制差异**：若重点是原理比较，优先评估动态图解；若重点是软件使用效果，优先真实操作和作品展示。不能仅凭出现AI关键词就决定手绘。
 - **市场大跌原因或热点解读**：数据、时间线、因果关系需要清楚，优先图表、原始资料及调查叙事；情绪包装不能替代事实核实。
 - **苏轼、李白等人物的一生**：优先评估 lifetrail 的地形、时间轴与引文卡片；《四渡赤水》等战役改用事件节点与双方行动模型，杭州＋DeepSeek需用城市及公司事件模型，不硬套半年人生轨迹。
+- **完璧归赵、张良拾履、冯谖弹剑**：有具体小动作、重复与反差的故事，优先评估 chibi-history-explainer；先核史料和因果，再设计角色动作、表情及拟音。需要地理关系时用地图，不把Q版人物当作地图引擎。
 - **儿童故事**：优先角色连续性和故事表演；白板可用于娓娓道来的绘本，但不默认每张图都从零慢慢画满。
 
 ## 规则与工程边界
@@ -58,3 +60,9 @@
 - 来源：[luwill/lifetrail](https://github.com/luwill/lifetrail)，main 分支，项目级安装于 `.claude/skills/lifetrail/`。
 - 保留完整源码与 MIT LICENSE；上游版本、适用边界、工程路径、声音及多平台适配见 [接入说明](lifetrail接入.md)。
 - 未安装运行依赖或下载地形；后续按选题检查。安装不代表已用此引擎制作原有四渡赤水视频。
+
+## chibi-history-explainer 安装
+
+- 来源：[Yiyu5331/chibi-history-explainer](https://github.com/Yiyu5331/chibi-history-explainer)，main 分支，项目级安装于 `.claude/skills/chibi-history-explainer/`。
+- 保留引擎、脚本、例片、录音及各自授权说明；固定版本、工程路径、横竖屏与声音适配见 [Q版历史讲解接入说明](Q版历史讲解接入.md)。
+- 安装不代表已经运行完整渲染；不自动生成新片，也不改动已确认的其他视频。

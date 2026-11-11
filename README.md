@@ -24,11 +24,12 @@
 
 ## 根据内容选择 Skill
 
-本项目既可制作产品宣传片，也可制作知识讲解、温馨手绘故事和历史人物地图叙事。`video-as-code` 负责整体流程，AI 会根据题材、受众、平台和动效需求选择主要制作 Skill，并在需求确认中说明理由，先出风格样图或动画样片供你选择。不会把上一支片子的风格固定套到下一支。
+本项目既可制作产品宣传片，也可制作知识讲解、温馨手绘故事、Q版历史故事和历史人物地图叙事。`video-as-code` 负责整体流程，AI 会根据题材、受众、平台和动效需求选择主要制作 Skill，并在需求确认中说明理由，先出风格样图或动画样片供你选择。不会把上一支片子的风格固定套到下一支。
 
 | 内容或画面需求 | 优先评估的 Skill / 路线 |
 |---|---|
 | 画笔逐步绘制、白板讲解、温馨手绘 | `srt-whiteboard-animation` |
+| Q版小人演历史、动作喜剧、字幕故事讲解 | `chibi-history-explainer` |
 | 历史人物生平、3D地形人生轨迹 | `lifetrail`（战役与城市叙事需另行适配） |
 | 数字人口播、多风格科普 | `lanshu-create-ai-presenter-video` |
 | 软件界面、产品宣传、版本发布 | `guizang-product-video-skill` / Remotion |
@@ -56,6 +57,14 @@
 它适合“给苏轼做一部人生轨迹视频”这类主要活动在中国的历史人物题材，以半年为步长，在3D地形上展示行迹。上游默认1920×1080、30fps；公元前出生的人物暂不支持。战役、城市与公司发展不是开箱即用题材，9:16及三平台版本也要单独适配，不能把人物模板直接当作四渡赤水战役模板。
 
 安装仅收录源码，不自动下载地形、不安装运行依赖、不生成视频。后续新视频仍先确认内容、风格和声音。上游代码采用 MIT，但默认 EOX 卫星影像是 **CC BY-NC-SA 4.0**，商业使用需要另行授权或换用适用的底图；不要把代码许可当作全部素材许可。
+
+### 当前项目安装的 Q 版历史讲解 Skill
+
+已将 [Yiyu5331/chibi-history-explainer](https://github.com/Yiyu5331/chibi-history-explainer) 的 **main 分支**固定版本安装到 `.claude/skills/chibi-history-explainer/`，保留 Canvas 引擎、动作道具、15秒空白模板、完整例片、脚本与 MIT LICENSE。项目级安装，不改全局环境。版本和接入方式见 [Q版历史讲解接入说明](references/Q版历史讲解接入.md)。
+
+适合“用Q版小人讲完璧归赵”“把张良拾履演出来”等有具体动作、重复与反差的故事；角色表演优先评估这个 Skill，人物地理行迹优先评估 lifetrail。画面由代码绘制，不是白板画笔显现，也不依赖 AI 生图。
+
+上游默认1920×1080、30fps、3–4分钟、无旁白，用字幕讲解并配动作拟音；本项目仍按用户确认决定时长、配音和画幅，9:16与三平台排版需要适配。自带录音音效包含 CC BY 3.0 和公有领域素材，发布时按实际使用保留署名，不能一概按 MIT 处理；不附带配乐。本次仅安装源码，不安装依赖、不生成视频。
 
 ## 快速开始
 
@@ -214,7 +223,7 @@ video-as-code/
 ├── AGENTS.md        # AI 的工作规范，整个项目的核心
 ├── SKILL.md         # 安装成 Skill 时的入口，内容只是指向 AGENTS.md
 ├── CLAUDE.md        # 让 Claude Code 也读取 AGENTS.md
-├── .claude/skills/  # 项目 Skill：lifetrail、srt-whiteboard-animation（anatomy本地可选）
+├── .claude/skills/  # 项目 Skill：chibi-history-explainer、lifetrail、srt-whiteboard-animation
 ├── references/      # 各阶段的详细方法：需求问询、风格菜单、素材获取、配乐卡点、配音、校验清单、踩坑记录、案例复盘
 ├── template/        # 每个新项目都从这里复制：Remotion 工程、网页播放页、全套脚本
 ├── outputs/         # 克隆用法下，你的成片会放在这里（不会被提交到 Git）

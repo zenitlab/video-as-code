@@ -41,3 +41,7 @@ Thumbs.db
 .claude/skills/lifetrail/.cache/
 .claude/skills/lifetrail/template/out/
 .claude/skills/lifetrail/template/assets/terrain/
+
+# Q版历史 Skill：跟踪源码和获授权样本，忽略本地环境
+.claude/skills/chibi-history-explainer/.venv/
+.claude/skills/chibi-history-explainer/.cache/

@@ -1,0 +1,8 @@
+{
+  "name": "chibi-history-film",
+  "private": true,
+  "description": "Q 版小人讲解片工程：canvas 画面 + playwright-core 逐帧渲染",
+  "dependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}
